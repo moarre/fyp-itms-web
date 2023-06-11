@@ -1,0 +1,30 @@
+.main-area {
+    margin-left: 3rem;
+    width: 80%;
+    justify-content: center;
+}
+
+.main-area p {
+    margin: 0cm;
+    font-size: 16px;
+    font-family: "Arial", sans-serif;
+}
+
+.main-area span {
+    font-size: 16px;
+    font-family: "Arial", sans-serif;
+}
+
+.main-area b {
+    display: inline-block;
+    width: 15%;
+    position: relative;
+    padding-right: 10px;
+    /* Ensures colon does not overlay the text */
+}
+
+.main-area b::after {
+    content: ":";
+    position: absolute;
+    right: 10px;
+}
