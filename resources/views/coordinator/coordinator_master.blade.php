@@ -24,6 +24,9 @@
         }
     </style>
 
+    <!-- Autocomplete place -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -103,8 +106,7 @@
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link"
-                                        href="{{ route('coordinator.bli03') }}">BLI-03</a>
+                                    <a class="nav-link" href="{{ route('coordinator.bli03') }}">BLI-03</a>
                                 </nav>
                             </div>
 
@@ -118,8 +120,7 @@
                             <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link"
-                                        href="{{ route('coordinator.bli04') }}">BLI-04</a>
+                                    <a class="nav-link" href="{{ route('coordinator.bli04') }}">BLI-04</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -132,8 +133,7 @@
                             <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link"
-                                        href="{{ route('coordinator.uploadDoc') }}">Upload Docs</a>
+                                    <a class="nav-link" href="{{ route('coordinator.uploadDoc') }}">Upload Docs</a>
                                 </nav>
                             </div>
                         </div>

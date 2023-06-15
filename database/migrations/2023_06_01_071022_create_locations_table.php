@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
+            $table->text('address')->nullable();
             $table->text('review')->nullable();
             $table->float('rating', 2, 1)->nullable();
             $table->text('nameCompany')->nullable();

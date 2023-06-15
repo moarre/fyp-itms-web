@@ -1,4 +1,5 @@
 @extends('coordinator.coordinator_master')
+
 @section('coordinator')
     <style>
         #map {
@@ -22,13 +23,9 @@
         <form action="{{ route('map.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="latitude">Latitude</label>
-                <input type="text" class="form-control" id="latitude" aria-describedby="latitude" name="latitude"
-                    placeholder="Enter latitude">
-            </div>
-            <div class="form-group">
-                <label for="longitude">Longitude</label>
-                <input type="text" class="form-control" id="longitude" placeholder="Enter longitude" name="longitude">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" aria-describedby="address" name="address"
+                    placeholder="Enter address">
             </div>
             <div class="form-group">
                 <label for="review">Review</label>
@@ -53,14 +50,16 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             function initMap() {
                 var map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 12,
                     center: {
-                        lat: 0,
-                        lng: 0
+                        lat: 3.15633,
+                        lng: 101.61695
                     }, // Default center
                 });
 
@@ -78,8 +77,11 @@
                     var iconUrl = 'https://maps.google.com/mapfiles/ms/icons/' + markerColor + '-dot.png';
 
                     var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng({{ $location->latitude }}, {{ $location->longitude }}),
                         map: map,
+                        position: {
+                            lat: {{ $location->latitude }},
+                            lng: {{ $location->longitude }}
+                        },
                         icon: {
                             url: iconUrl,
                             scaledSize: new google.maps.Size(32, 32) // Adjust the size as needed
@@ -105,9 +107,6 @@
                             infowindow.open(map, marker);
                         };
                     })(marker, content, infowindow));
-
-                    // Update the map center to the marker position
-                    map.setCenter(marker.getPosition());
                 @endforeach
 
                 function removeMarker(index) {
@@ -118,6 +117,7 @@
 
             $(document).ready(function() {
                 initMap();
+                initAutocomplete();
             });
 
             function limitToMax(element, max) {
@@ -125,8 +125,32 @@
                     element.value = max;
                 }
             }
-        </script>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries">
+
+            // Autocomplete address
+            function initAutocomplete() {
+                var input = document.getElementById('address');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+
+                autocomplete.addListener('place_changed', function() {
+                    var place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        // User entered the name of a Place that was not suggested and
+                        // pressed the Enter key, or the Place Details request failed.
+                        window.alert("No details available for input: '" + place.name + "'");
+                        return;
+                    }
+
+                    // Set the value of the input field with the selected address
+                    document.getElementById('address').value = place.formatted_address;
+                });
+
+                // Prevent form submission on Enter key press
+                input.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                    }
+                });
+            }
         </script>
     </div>
 @endsection
