@@ -19,16 +19,21 @@
             <form method="GET" id="search-form">
                 <div class="mb-3">
                     <div class="input-group mb-2">
-                        <input type="text" name="search" class="form-control" placeholder="Name">
+                        <input type="text" name="name" class="form-control" placeholder="Name">
                     </div>
                     <div class="input-group mb-2">
-                        <input type="text" name="search" class="form-control" placeholder="IC">
+                        <input type="text" name="ic" class="form-control" placeholder="IC">
                     </div>
                     <div class="input-group mb-2">
-                        <input type="text" name="search" class="form-control" placeholder="Student Number">
+                        <input type="text" name="student_number" class="form-control" placeholder="Student Number">
+                    </div>
+                    <div class="input-group mb-2">
+                        <input type="text" name="program_code" class="form-control" placeholder="Program Code">
+                    </div>
+                    <div class="input-group mb-2">
+                        <input type="text" name="semester" class="form-control" placeholder="Semester">
                     </div>
                     @csrf
-                    @method('GET')
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
@@ -41,7 +46,7 @@
         <div class="row px-3">
             <h2 class="mt-4">List of Students</h2>
             <form method="POST" id="pdf-form" action="{{ route('coordinator.pdf.upload') }}">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="student-table">
                     <thead>
                         <tr>
                             <th scope="col">
@@ -108,62 +113,18 @@
     {{-- checkboxes --}}
     <script>
         $(document).ready(function() {
-
-            // Search filter
-            /* $('form#search-form').submit(function(e) {
-                e.preventDefault();
-                var searchValue = $('input[name="search"]').val().toLowerCase();
-                $('tbody tr').each(function() {
-                    var text = $(this).find('td:nth-child(3)').text().toLowerCase();
-                    if (text.indexOf(searchValue) !== -1) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                return false;
-            }); */
-
-            /* $("#search-form").on("submit", function(e) {
-                e.preventDefault();
-                var name = $("input[name='name']").val();
-                var ic = $("input[name='ic']").val();
-                var student_number = $("input[name='student_number']").val();
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('coordinator.filterstudent') }}",
-                    data: {
-                        name: name,
-                        ic: ic,
-                        student_number: student_number,
-                    },
-                    success: function(data) {
-                        console.log('success');
-                        // Replace the table with the filtered results
-                        $("#student-table").replaceWith(data);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    },
-                });
-            }); */
-
             $('#search-form').on('submit', function(e) {
                 e.preventDefault();
-                var query = $('#search-input').val();
+                var formData = $(this).serialize();
+
                 $.ajax({
                     url: '{{ route('coordinator.search') }}',
-                    type: 'POST',
-                    data: {
-                        query: query
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
+                    type: 'GET',
+                    data: formData,
+                    success: function(response) {
                         console.log('success');
-                        // Replace the table with the filtered results
-                        //$("#student-table").replaceWith(data);
+                        // Replace the table body with the filtered results
+                        $("#student-table tbody").html(response.html);
                     },
                     error: function(error) {
                         console.log(error);

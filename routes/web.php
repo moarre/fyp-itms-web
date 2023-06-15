@@ -82,7 +82,7 @@ Route::prefix('coordinator')->group(function () {
 
     /* ---------------- Map Route ---------------- */
 
-    Route::post('/students/search', [CoordinatorController::class, 'search'])->name('coordinator.search')->middleware('coordinator');
+    Route::get('/search', [CoordinatorController::class, 'search'])->name('coordinator.search')->middleware('coordinator');
 
     Route::get('/logout', [CoordinatorController::class, 'CoordinatorLogout'])->name('coordinator.logout')->middleware('coordinator');
     Route::get('/register', [CoordinatorController::class, 'CoordinatorRegister'])->name('coordinator.register');
@@ -154,9 +154,9 @@ Route::post('/send-email', [MapController::class, 'sendEmail'])->name('send-emai
 
 /* ---------------- Map Route ---------------- */
 
-Route::get('/map', [MapController::class, 'index'])->name('map.index');
-Route::post('/map', [MapController::class, 'store'])->name('map.store');
-Route::delete('/map/{location}', [MapController::class, 'destroy'])->name('map.destroy');
+// Route::get('/map', [MapController::class, 'index'])->name('map.index');
+// Route::post('/map', [MapController::class, 'store'])->name('map.store');
+// Route::delete('/map/{location}', [MapController::class, 'destroy'])->name('map.destroy');
 
 /* ---------------- Map Route ---------------- */
 

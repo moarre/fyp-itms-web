@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Swift_Attachment;
@@ -36,7 +37,7 @@ class CoordinatorController extends Controller
         $semesters = Semester::all();
         $locations = Location::all();
 
-        return view('coordinator.index', compact('students', 'programs', 'semesters','locations'));
+        return view('coordinator.index', compact('students', 'programs', 'semesters', 'locations'));
     } // end mehtod
 
 
@@ -578,11 +579,37 @@ class CoordinatorController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->get('query');
-        $students = User::where('name', 'LIKE', '%' . $query . '%')
-            ->orWhere('ic', 'LIKE', '%' . $query . '%')
-            ->orWhere('student_number', 'LIKE', '%' . $query . '%')
+        $name = $request->input('name');
+        $ic = $request->input('ic');
+        $studentNumber = $request->input('student_number');
+        $programCode = $request->input('program_code');
+        $semester = $request->input('semester');
+
+        $students = User::when($name, function ($query) use ($name) {
+            $query->where('fullname', 'like', '%' . $name . '%');
+        })
+            ->when($ic, function ($query) use ($ic) {
+                $query->where('ic', 'like', '%' . $ic . '%');
+            })
+            ->when($studentNumber, function ($query) use ($studentNumber) {
+                $query->where('student_number', 'like', '%' . $studentNumber . '%');
+            })
+            ->when($programCode, function ($query) use ($programCode) {
+                $query->whereHas('programs', function ($query) use ($programCode) {
+                    $query->where('code', 'like', '%' . $programCode . '%');
+                });
+            })
+            ->when($semester, function ($query) use ($semester) {
+                $query->whereHas('semesters', function ($query) use ($semester) {
+                    $query->where('session', 'like', '%' . $semester . '%');
+                });
+            })
+            ->with('program', 'semester')
             ->get();
-        return response()->json(['students' => $students]);
+
+        // Render the partial view with the filtered students
+        $html = view('coordinator.student_table', compact('students'))->render();
+
+        return response()->json(['html' => $html]);
     }
 }
