@@ -74,8 +74,8 @@
             <br>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-primary" href="{{ route('students.index') }}"> Back</a>
+                    <button type="submit" class="btn btn-purple">Submit</button>
+                    <a class="btn btn-purple" href="{{ route('students.index') }}"> Back</a>
                 </div>
             </div>
 

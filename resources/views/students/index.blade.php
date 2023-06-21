@@ -13,9 +13,12 @@
             height: 100px;
             /* Adjust the height as needed */
         }
+        .bg-purple{
+            background-color: purple;
+            color: white;
+        }
     </style>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Students</h1>
         <br>
         <div id="map" style="height: 500px;"></div>
 
@@ -24,7 +27,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="companyName" placeholder="Enter company name">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="searchCompany()">Search</button>
+                        <button class="btn btn-purple" type="button" onclick="searchCompany()">Search</button>
                     </div>
                 </div>
             </div>
@@ -32,7 +35,7 @@
 
         <div class="container-fluid px-4 mt-4">
             <table class="table table-hover">
-                <thead>
+                <thead class="bg-purple">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Company Name</th>

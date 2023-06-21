@@ -1,12 +1,12 @@
-@extends('programs.program_master')
-@section('programs')
+@extends('coordinator.coordinator_master')
+@section('coordinator')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Programs</h1>
     <ol class="breadcrumb mb-4 px-1">
         <li class="breadcrumb-item active">Manage Programs</li>
     </ol>
     <div class="pull-right mb-4">
-        <a class="btn btn-success" href="{{ route('programs.create') }}"> Add New Program</a>
+        <a class="btn btn-purple" href="{{ route('programs.create') }}"> Add New Program</a>
     </div>
     <div class="row px-3">
         <table class="table table-striped table-hover">
@@ -31,16 +31,16 @@
                         <td>
                             <form action="{{ route('programs.destroy', $p->id) }}" method="POST">
 
-                                <a class="btn btn-info"
+                                <a class="btn btn-purple"
                                     href="{{ route('programs.show', $p->id) }}">Show</a>
 
-                                <a class="btn btn-primary"
+                                <a class="btn btn-purple"
                                     href="{{ route('programs.edit', $p->id) }}">Edit</a>
 
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-purple">Delete</button>
                             </form>
                         </td>
                     </tr>

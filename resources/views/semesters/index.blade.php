@@ -1,12 +1,12 @@
-@extends('semesters.semester_master')
-@section('semesters')
+@extends('coordinator.coordinator_master')
+@section('coordinator')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Semesters</h1>
     <ol class="breadcrumb mb-4 px-1">
         <li class="breadcrumb-item active">Manage Semesters</li>
     </ol>
     <div class="pull-right mb-4">
-        <a class="btn btn-success" href="{{ route('semesters.create') }}"> Add New Semester</a>
+        <a class="btn btn-purple" href="{{ route('semesters.create') }}"> Add New Semester</a>
     </div>
     <div class="row px-3">
         <table class="table table-striped table-hover">
@@ -33,16 +33,16 @@
                         <td>
                             <form action="{{ route('semesters.destroy', $s->id) }}" method="POST">
 
-                                <a class="btn btn-info"
+                                <a class="btn btn-purple"
                                     href="{{ route('semesters.show', $s->id) }}">Show</a>
 
-                                <a class="btn btn-primary"
+                                <a class="btn btn-purple"
                                     href="{{ route('semesters.edit', $s->id) }}">Edit</a>
 
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-purple">Delete</button>
                             </form>
                         </td>
                     </tr>
