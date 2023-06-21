@@ -551,33 +551,9 @@ class CoordinatorController extends Controller
     //     });
     // }
 
+    /* Search Section Start */
 
-
-    //filter student
-    public function filterstudent(Request $request)
-    {
-        $name = $request->input('name');
-        $ic = $request->input('ic');
-        $student_number = $request->input('student_number');
-
-        // Query the database to retrieve the filtered results
-        $students = User::where(function ($query) use ($name, $ic, $student_number) {
-            if ($name) {
-                $query->where('name', 'LIKE', '%' . $name . '%');
-            }
-            if ($ic) {
-                $query->where('ic', 'LIKE', '%' . $ic . '%');
-            }
-            if ($student_number) {
-                $query->where('student_number', 'LIKE', '%' . $student_number . '%');
-            }
-        })->get();
-
-        // Return the view with the filtered results
-        return view('coordinator.dashboard', ['students' => $students]);
-    }
-
-    public function search(Request $request)
+    public function searchli01(Request $request)
     {
         $name = $request->input('name');
         $ic = $request->input('ic');
@@ -608,8 +584,202 @@ class CoordinatorController extends Controller
             ->get();
 
         // Render the partial view with the filtered students
-        $html = view('coordinator.student_table', compact('students'))->render();
+        $html = view('coordinator.new-tables.student_tableli01', compact('students'))->render();
 
+        return response()->json(['html' => $html]);
+    }
+
+    public function searchli02(Request $request)
+    {
+        $name = $request->input('name');
+        $ic = $request->input('ic');
+        $studentNumber = $request->input('student_number');
+        $programCode = $request->input('program_code');
+        $semester = $request->input('semester');
+
+        $students = User::when($name, function ($query) use ($name) {
+            $query->where('fullname', 'like', '%' . $name . '%');
+        })
+            ->when($ic, function ($query) use ($ic) {
+                $query->where('ic', 'like', '%' . $ic . '%');
+            })
+            ->when($studentNumber, function ($query) use ($studentNumber) {
+                $query->where('student_number', 'like', '%' . $studentNumber . '%');
+            })
+            ->when($programCode, function ($query) use ($programCode) {
+                $query->whereHas('programs', function ($query) use ($programCode) {
+                    $query->where('code', 'like', '%' . $programCode . '%');
+                });
+            })
+            ->when($semester, function ($query) use ($semester) {
+                $query->whereHas('semesters', function ($query) use ($semester) {
+                    $query->where('session', 'like', '%' . $semester . '%');
+                });
+            })
+            ->with('program', 'semester')
+            ->get();
+
+        // Render the partial view with the filtered students
+        $html = view('coordinator.new-tables.student_tableli02', compact('students'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
+    public function searchli03(Request $request)
+    {
+        $name = $request->input('name');
+        $ic = $request->input('ic');
+        $studentNumber = $request->input('student_number');
+        $programCode = $request->input('program_code');
+        $semester = $request->input('semester');
+
+        $students = User::when($name, function ($query) use ($name) {
+            $query->where('fullname', 'like', '%' . $name . '%');
+        })
+            ->when($ic, function ($query) use ($ic) {
+                $query->where('ic', 'like', '%' . $ic . '%');
+            })
+            ->when($studentNumber, function ($query) use ($studentNumber) {
+                $query->where('student_number', 'like', '%' . $studentNumber . '%');
+            })
+            ->when($programCode, function ($query) use ($programCode) {
+                $query->whereHas('programs', function ($query) use ($programCode) {
+                    $query->where('code', 'like', '%' . $programCode . '%');
+                });
+            })
+            ->when($semester, function ($query) use ($semester) {
+                $query->whereHas('semesters', function ($query) use ($semester) {
+                    $query->where('session', 'like', '%' . $semester . '%');
+                });
+            })
+            ->with('program', 'semester')
+            ->get();
+
+        // Render the partial view with the filtered students
+        $html = view('coordinator.new-tables.student_tableli03', compact('students'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
+    public function searchli04(Request $request)
+    {
+        $name = $request->input('name');
+        $ic = $request->input('ic');
+        $studentNumber = $request->input('student_number');
+        $programCode = $request->input('program_code');
+        $semester = $request->input('semester');
+
+        $students = User::when($name, function ($query) use ($name) {
+            $query->where('fullname', 'like', '%' . $name . '%');
+        })
+            ->when($ic, function ($query) use ($ic) {
+                $query->where('ic', 'like', '%' . $ic . '%');
+            })
+            ->when($studentNumber, function ($query) use ($studentNumber) {
+                $query->where('student_number', 'like', '%' . $studentNumber . '%');
+            })
+            ->when($programCode, function ($query) use ($programCode) {
+                $query->whereHas('programs', function ($query) use ($programCode) {
+                    $query->where('code', 'like', '%' . $programCode . '%');
+                });
+            })
+            ->when($semester, function ($query) use ($semester) {
+                $query->whereHas('semesters', function ($query) use ($semester) {
+                    $query->where('session', 'like', '%' . $semester . '%');
+                });
+            })
+            ->with('program', 'semester')
+            ->get();
+
+        // Render the partial view with the filtered students
+        $html = view('coordinator.new-tables.student_tableli04', compact('students'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
+    /* Search Section End */
+
+    public function li01allStudents()
+    {
+        $students = User::all();
+        $html = view('coordinator.new-tables.student_tableli01', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li01generatedStudents()
+    {
+        $students = User::whereNotNull('li01_id')->get();
+        $html = view('coordinator.new-tables.student_tableli01', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li01notGeneratedStudents()
+    {
+        $students = User::whereNull('li01_id')->get();
+        $html = view('coordinator.new-tables.student_tableli01', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li02allStudents()
+    {
+        $students = User::all();
+        $html = view('coordinator.new-tables.student_tableli02', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li02generatedStudents()
+    {
+        $students = User::whereNotNull('li02_id')->get();
+        $html = view('coordinator.new-tables.student_tableli02', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li02notGeneratedStudents()
+    {
+        $students = User::whereNull('li02_id')->get();
+        $html = view('coordinator.new-tables.student_tableli02', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li03allStudents()
+    {
+        $students = User::all();
+        $html = view('coordinator.new-tables.student_tableli03', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li03generatedStudents()
+    {
+        $students = User::whereNotNull('li03_id')->get();
+        $html = view('coordinator.new-tables.student_tableli03', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li03notGeneratedStudents()
+    {
+        $students = User::whereNull('li03_id')->get();
+        $html = view('coordinator.new-tables.student_tableli03', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li04allStudents()
+    {
+        $students = User::all();
+        $html = view('coordinator.new-tables.student_tableli04', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li04generatedStudents()
+    {
+        $students = User::whereNotNull('li04_id')->get();
+        $html = view('coordinator.new-tables.student_tableli04', compact('students'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function li04notGeneratedStudents()
+    {
+        $students = User::whereNull('li04_id')->get();
+        $html = view('coordinator.new-tables.student_tableli04', compact('students'))->render();
         return response()->json(['html' => $html]);
     }
 }

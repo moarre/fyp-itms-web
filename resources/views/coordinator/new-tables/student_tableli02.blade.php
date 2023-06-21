@@ -1,3 +1,4 @@
+<?php $number = 0; ?>
 @foreach ($students as $student)
     <?php $number++; ?>
     <tr>
@@ -13,12 +14,16 @@
         <td>{{ Arr::get($student, 'semester.session') }}</td>
         <td>
             <form action="{{ route('coordinator.destroy', $student->id) }}" id="delete-form" method="POST">
-                <a class="btn btn-info" href="{{ route('coordinator.show', $student->id) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('coordinator.edit', $student->id) }}">Edit</a>
-                <a class="btn btn-warning" href="{{ route('coordinator.pdf', $student->id) }}">Generate SLI-01</a>
+
+                <a class="btn btn-purple" href="{{ route('bli02.view', $student->li02_id) }}">View</a>
+
+                <a class="btn btn-purple" href="{{ route('bli02.download', $student->li02_id) }}">Download
+                </a>
+
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+
+                <button type="submit" class="btn btn-purple">Delete</button>
             </form>
         </td>
     </tr>

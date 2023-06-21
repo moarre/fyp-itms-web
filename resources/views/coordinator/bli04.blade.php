@@ -1,16 +1,27 @@
 @extends('coordinator.coordinator_master')
 @section('coordinator')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Coordinator (BLI-04)</h1>
-        <div class="btn-group pull-right mb-4">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Manage Students
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="{{ route('programs.index') }}"> Program</a></li>
-                <li><a class="dropdown-item" href="{{ route('semesters.index') }}"> Semester</a></li>
-            </ul>
+        <div class="row px-3 mb-4 mt-4">
+            <div class="col">
+                <h1>Coordinator (BLI-04)</h1>
+            </div>
+            <div class="col-auto mt-2 float-end">
+                <div class="dropdown">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-purple" id="btn-all">All</button>
+                        <button type="button" class="btn btn-purple" id="btn-generated">Generated</button>
+                        <button type="button" class="btn btn-purple" id="btn-not-generated">Not Generated</button>
+                    </div>
+                    <button class="btn btn-purple dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Manage Students
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{{ route('programs.index') }}"> Program</a></li>
+                        <li><a class="dropdown-item" href="{{ route('semesters.index') }}"> Semester</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="row px-3 mb-3" id="searche">
@@ -35,7 +46,7 @@
                     </div>
                     @csrf
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn btn-purple" type="submit">Search</button>
                     </div>
                 </div>
             </form>
@@ -82,16 +93,16 @@
                                     <form action="{{ route('coordinator.destroy', $student->id) }}" id="delete-form"
                                         method="POST">
 
-                                        <a class="btn btn-info"
+                                        <a class="btn btn-purple"
                                             href="{{ route('bli03.view', $student->id) }}">Show Details</a>
 
-                                        <a class="btn btn-warning"
+                                        <a class="btn btn-purple"
                                             href="{{ route('bli04.email', $student->id) }}">Email the Company</a>
 
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-purple">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -100,7 +111,7 @@
                 </table>
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn btn-primary">Generate SLI-03</button>
+                <button type="submit" class="btn btn-purple">Generate SLI-04</button>
             </form>
         </div>
     </div>
@@ -116,7 +127,7 @@
                 var formData = $(this).serialize();
 
                 $.ajax({
-                    url: '{{ route('coordinator.search') }}',
+                    url: '{{ route('coordinator.searchli04') }}',
                     type: 'GET',
                     data: formData,
                     success: function(response) {
@@ -128,6 +139,66 @@
                         console.log(error);
                     },
                 });
+            });
+
+            // Function to load all students
+            function loadAllStudents() {
+                $.ajax({
+                    url: '{{ route('coordinator.li04all') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        // Update the table body with all students
+                        $("#student-table tbody").empty().html(response.html);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                });
+            }
+
+            // Function to load generated students
+            function loadGeneratedStudents() {
+                $.ajax({
+                    url: '{{ route('coordinator.li04generated') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        // Update the table body with generated students
+                        $("#student-table tbody").empty().html(response.html);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                });
+            }
+
+            // Function to load not generated students
+            function loadNotGeneratedStudents() {
+                $.ajax({
+                    url: '{{ route('coordinator.li04notGenerated') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        // Update the table body with not generated students
+                        $("#student-table tbody").empty().html(response.html);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                });
+            }
+
+            // Load all students when the "All" button is clicked
+            $('#btn-all').click(function() {
+                loadAllStudents();
+            });
+
+            // Load generated students when the "Generated" button is clicked
+            $('#btn-generated').click(function() {
+                loadGeneratedStudents();
+            });
+
+            // Load not generated students when the "Not Generated" button is clicked
+            $('#btn-not-generated').click(function() {
+                loadNotGeneratedStudents();
             });
 
             // Toggle all checkboxes

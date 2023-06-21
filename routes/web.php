@@ -53,6 +53,20 @@ Route::prefix('coordinator')->group(function () {
     Route::post('/login/owner', [CoordinatorController::class, 'CoordinatorLogin'])->name('coordinator.login');
     Route::get('/dashboard', [CoordinatorController::class, 'CoordinatorDashboard'])->name('coordinator.dashboard')->middleware('coordinator');
     Route::get('/BLI01', [CoordinatorController::class, 'BLI01page'])->name('coordinator.bli01')->middleware('coordinator');
+
+    Route::get('/BLI01/all', [CoordinatorController::class, 'li01allStudents'])->name('coordinator.li01all')->middleware('coordinator');
+    Route::get('/BLI01/generated', [CoordinatorController::class, 'li01generatedStudents'])->name('coordinator.li01generated')->middleware('coordinator');
+    Route::get('/BLI01/not-generated', [CoordinatorController::class, 'li01notGeneratedStudents'])->name('coordinator.li01notGenerated')->middleware('coordinator');
+    Route::get('/BLI02/all', [CoordinatorController::class, 'li02allStudents'])->name('coordinator.li02all')->middleware('coordinator');
+    Route::get('/BLI02/generated', [CoordinatorController::class, 'li02generatedStudents'])->name('coordinator.li02generated')->middleware('coordinator');
+    Route::get('/BLI02/not-generated', [CoordinatorController::class, 'li02notGeneratedStudents'])->name('coordinator.li02notGenerated')->middleware('coordinator');
+    Route::get('/BLI03/all', [CoordinatorController::class, 'li03allStudents'])->name('coordinator.li03all')->middleware('coordinator');
+    Route::get('/BLI03/generated', [CoordinatorController::class, 'li03generatedStudents'])->name('coordinator.li03generated')->middleware('coordinator');
+    Route::get('/BLI03/not-generated', [CoordinatorController::class, 'li03notGeneratedStudents'])->name('coordinator.li03notGenerated')->middleware('coordinator');
+    Route::get('/BLI04/all', [CoordinatorController::class, 'li04allStudents'])->name('coordinator.li04all')->middleware('coordinator');
+    Route::get('/BLI04/generated', [CoordinatorController::class, 'li04generatedStudents'])->name('coordinator.li04generated')->middleware('coordinator');
+    Route::get('/BLI04/not-generated', [CoordinatorController::class, 'li04notGeneratedStudents'])->name('coordinator.li04notGenerated')->middleware('coordinator');
+
     Route::get('/BLI02', [CoordinatorController::class, 'BLI02page'])->name('coordinator.bli02')->middleware('coordinator');
     Route::get('/BLI03', [CoordinatorController::class, 'BLI03page'])->name('coordinator.bli03')->middleware('coordinator');
     Route::get('/BLI04', [CoordinatorController::class, 'BLI04page'])->name('coordinator.bli04')->middleware('coordinator');
@@ -71,9 +85,6 @@ Route::prefix('coordinator')->group(function () {
     /* upload end */
     // Define the route
     Route::get('/sendbli04Email/{id}', [CoordinatorController::class, 'sendbli04Email'])->name('bli04.email')->middleware('coordinator');
-    //filter student
-    Route::get('/dashboard/students', [CoordinatorController::class, 'filterstudent'])->name('coordinator.filterstudent')->middleware('coordinator');
-    //endfilter
 
     /* ---------------- Map Route ---------------- */
 
@@ -82,7 +93,10 @@ Route::prefix('coordinator')->group(function () {
 
     /* ---------------- Map Route ---------------- */
 
-    Route::get('/search', [CoordinatorController::class, 'search'])->name('coordinator.search')->middleware('coordinator');
+    Route::get('/searchli01', [CoordinatorController::class, 'searchli01'])->name('coordinator.searchli01')->middleware('coordinator');
+    Route::get('/searchli02', [CoordinatorController::class, 'searchli02'])->name('coordinator.searchli02')->middleware('coordinator');
+    Route::get('/searchli03', [CoordinatorController::class, 'searchli03'])->name('coordinator.searchli03')->middleware('coordinator');
+    Route::get('/searchli04', [CoordinatorController::class, 'searchli04'])->name('coordinator.searchli04')->middleware('coordinator');
 
     Route::get('/logout', [CoordinatorController::class, 'CoordinatorLogout'])->name('coordinator.logout')->middleware('coordinator');
     Route::get('/register', [CoordinatorController::class, 'CoordinatorRegister'])->name('coordinator.register');
