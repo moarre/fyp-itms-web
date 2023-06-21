@@ -90,21 +90,12 @@
                                 <td>{{ Arr::get($student, 'program.code') }}</td>
                                 <td>{{ Arr::get($student, 'semester.session') }}</td>
                                 <td>
-                                    <form action="{{ route('coordinator.destroy', $student->id) }}" id="delete-form"
-                                        method="POST">
+                                    <a class="btn btn-purple"
+                                        href="{{ route('bli02.view', $student->li02_id) }}">View</a>
 
-                                        <a class="btn btn-purple"
-                                            href="{{ route('bli02.view', $student->li02_id) }}">View</a>
-
-                                        <a class="btn btn-purple"
-                                            href="{{ route('bli02.download', $student->li02_id) }}">Download
-                                        </a>
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-purple">Delete</button>
-                                    </form>
+                                    <a class="btn btn-purple"
+                                        href="{{ route('bli02.download', $student->li02_id) }}">Download
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -238,24 +229,6 @@
                 });
             });
 
-            // Delete student on form submission
-            $("form#delete-form").submit(function(event) {
-                event.preventDefault();
-
-                // Get the form action
-                var actionUrl = $(this).attr("action");
-
-                // Submit the form
-                $.ajax({
-                    url: actionUrl,
-                    type: "POST",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        console.log(response);
-                        location.reload();
-                    }
-                });
-            });
         });
     </script>
 @endsection

@@ -90,20 +90,11 @@
                                 <td>{{ Arr::get($student, 'program.code') }}</td>
                                 <td>{{ Arr::get($student, 'semester.session') }}</td>
                                 <td>
-                                    <form action="{{ route('coordinator.destroy', $student->id) }}" id="delete-form"
-                                        method="POST">
+                                    <a class="btn btn-purple" href="{{ route('bli03.view', $student->id) }}">Show
+                                        Details</a>
 
-                                        <a class="btn btn-purple"
-                                            href="{{ route('bli03.view', $student->id) }}">Show Details</a>
-
-                                        <a class="btn btn-purple"
-                                            href="{{ route('bli04.email', $student->id) }}">Email the Company</a>
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-purple">Delete</button>
-                                    </form>
+                                    <a class="btn btn-purple" href="{{ route('bli04.email', $student->id) }}">Email the
+                                        Company</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -233,25 +224,6 @@
                     success: function(response) {
                         $("#pdf-message").text(response);
                         $("#alert-pdf").removeClass("hide").addClass("show");
-                    }
-                });
-            });
-
-            // Delete student on form submission
-            $("form#delete-form").submit(function(event) {
-                event.preventDefault();
-
-                // Get the form action
-                var actionUrl = $(this).attr("action");
-
-                // Submit the form
-                $.ajax({
-                    url: actionUrl,
-                    type: "POST",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        console.log(response);
-                        location.reload();
                     }
                 });
             });

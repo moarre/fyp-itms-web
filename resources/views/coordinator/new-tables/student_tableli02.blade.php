@@ -13,18 +13,12 @@
         <td>{{ Arr::get($student, 'program.code') }}</td>
         <td>{{ Arr::get($student, 'semester.session') }}</td>
         <td>
-            <form action="{{ route('coordinator.destroy', $student->id) }}" id="delete-form" method="POST">
+            <a class="btn btn-purple"
+                href="{{ route('bli02.view', $student->li02_id) }}">View</a>
 
-                <a class="btn btn-purple" href="{{ route('bli02.view', $student->li02_id) }}">View</a>
-
-                <a class="btn btn-purple" href="{{ route('bli02.download', $student->li02_id) }}">Download
-                </a>
-
-                @csrf
-                @method('DELETE')
-
-                <button type="submit" class="btn btn-purple">Delete</button>
-            </form>
+            <a class="btn btn-purple"
+                href="{{ route('bli02.download', $student->li02_id) }}">Download
+            </a>
         </td>
     </tr>
 @endforeach
