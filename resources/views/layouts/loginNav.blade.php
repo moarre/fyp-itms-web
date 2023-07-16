@@ -31,18 +31,18 @@
                     <a class="nav-link @if (\Request::is('login')) active @endif"
                         href="{{ route('login') }}">Student</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link @if (\Request::is('lecturer/login')) active @endif"
                         href="{{ route('lecturer_login_from') }}">Lecturer</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link @if (\Request::is('coordinator/login')) active @endif"
                         href="{{ route('coordinator_login_from') }}">Coordinator</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link @if (\Request::is('admin/login')) active @endif"
                         href="{{ route('login_from') }}">Admin</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <div class="card-body bg-image"
