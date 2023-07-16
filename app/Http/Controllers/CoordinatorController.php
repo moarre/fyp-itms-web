@@ -526,8 +526,8 @@ class CoordinatorController extends Controller
 
         // Send the email with attachments
         Mail::send([], [], function ($message) use ($user, $emailMessage, $attachments) {
-            $message->from('sender@example.com', 'Sender Name');
-            $message->to($user->email)->subject('Account Details');
+            $message->from($user->program->coordinator->email,  $user->program->coordinator->name);
+            $message->to($user->interndata->companyEmail)->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
             $message->setBody($emailMessage, 'text/html');
             foreach ($attachments as $attachment) {
                 if (is_array($attachment)) {
@@ -539,7 +539,8 @@ class CoordinatorController extends Controller
         });
 
         // Return a response
-        return response()->json(['message' => 'Email sent'], 200);
+        // return response()->json(['message' => 'Email sent'], 200);
+        return redirect()->back()->with('success', 'Email sent successfully.');
     }
 
 
