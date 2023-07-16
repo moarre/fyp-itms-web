@@ -47,10 +47,10 @@
 
                         <hr class="my-4">
 
-                        <div class="d-grid gap-2">
+                        {{-- <div class="d-grid gap-2">
                             <button class="btn btn-block btn-primary" style="background-color: #dd4b39;"
                                 type="submit"><i class="fab fa-google me-2"></i> SIGN IN WITH GOOGLE</button>
-                        </div>
+                        </div> --}}
 
                         <div class="flex items-center justify-center mt-4">
                             @if (Route::has('password.request'))
