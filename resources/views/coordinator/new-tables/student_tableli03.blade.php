@@ -10,8 +10,8 @@
         <td>{{ $number }}</td>
         <td>{{ $student->student_number }}</td>
         <td>{{ $student->fullname }}</td>
-        <td>{{ $student->program->code }}</td>
-        <td>{{ $student->semester->session }}</td>
+        <td>{{ Arr::get($student, 'program.code') }}</td>
+        <td>{{ Arr::get($student, 'semester.session') }}</td>
         <td>
             <a class="btn btn-purple" href="{{ route('bli03.view', $student->id) }}">Show
                 Details</a>

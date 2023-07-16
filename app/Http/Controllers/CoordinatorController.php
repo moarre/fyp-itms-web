@@ -245,9 +245,9 @@ class CoordinatorController extends Controller
         foreach ($users as $user) {
             // check if user already has a pdf_id
             if (!!$user->li01_id) {
-                return response('Letter already generated for this user');
-            } else {
                 continue;
+            } else {
+                return response('Letter already generated for this user');
             }
 
             // check if user has li02 or li03 id
