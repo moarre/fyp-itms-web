@@ -58,22 +58,6 @@
             font-family: "Arial", sans-serif;
         }
 
-        /* column banner */
-        /* .column {
-            float: left;
-            width: 33.33%;
-            height: 1rem;
-            margin-left: 0px;
-            margin-top: 0px;
-        }*/
-
-        /* Clear floats after the columns */
-        /* .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        } */
-
         .banner {
             margin-top: 0;
         }
@@ -81,20 +65,6 @@
 </head>
 
 <body>
-    <!-- <div class="row">
-        <div class="column" style="background-color:#aaa;">
-            <h2>Column 1</h2>
-            <p>Some text..</p>
-        </div>
-        <div class="column" style="background-color:#bbb;">
-            <h2>Column 2</h2>
-            <p>Some text..</p>
-        </div>
-        <div class="column" style="background-color:#ccc;">
-            <h2>Column 3</h2>
-            <p>Some text..</p>
-        </div>
-    </div> -->
     <div class="banner">
         <img src={{ asset('img/2.png') }} alt="banner" height="150rem" width="690rem">
     </div>
