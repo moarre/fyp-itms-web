@@ -194,8 +194,8 @@ class CoordinatorController extends Controller
     {
         $students = User::with('program', 'semester', 'coordinator', 'lecturer', 'pdf')
             ->get();
-        $programs = Program::all();
-        $semesters = Semester::all();
+        $programs = Program::pluck('code', 'id');
+        $semesters = Semester::pluck('session', 'id', 'numSemester');
 
         return view('coordinator.bli01', compact('students', 'programs', 'semesters'));
     } // end mehtod
@@ -277,8 +277,8 @@ class CoordinatorController extends Controller
     {
         $students = User::with('program', 'semester', 'coordinator', 'lecturer', 'pdf')
             ->get();
-        $programs = Program::all();
-        $semesters = Semester::all();
+        $programs = Program::pluck('code', 'id');
+        $semesters = Semester::pluck('session', 'id', 'numSemester');
 
         return view('coordinator.bli02', compact('students', 'programs', 'semesters'));
     } // end mehtod
@@ -310,8 +310,8 @@ class CoordinatorController extends Controller
     {
         $students = User::with('program', 'semester', 'coordinator', 'lecturer', 'pdf')
             ->get();
-        $programs = Program::all();
-        $semesters = Semester::all();
+        $programs = Program::pluck('code', 'id');
+        $semesters = Semester::pluck('session', 'id', 'numSemester');
 
         return view('coordinator.bli03', compact('students', 'programs', 'semesters'));
     } // end mehtod
@@ -403,8 +403,8 @@ class CoordinatorController extends Controller
     {
         $students = User::with('program', 'semester', 'coordinator', 'lecturer', 'pdf')
             ->get();
-        $programs = Program::all();
-        $semesters = Semester::all();
+        $programs = Program::pluck('code', 'id');
+        $semesters = Semester::pluck('session', 'id', 'numSemester');
 
         return view('coordinator.bli04', compact('students', 'programs', 'semesters'));
     } // end mehtod
@@ -539,18 +539,8 @@ class CoordinatorController extends Controller
         });
 
         // Return a response
-        // return response()->json(['message' => 'Email sent'], 200);
         return redirect()->back()->with('success', 'Email sent successfully.');
     }
-
-
-    // public function sendbli04Email()
-    // {
-    //     Mail::send('welcome', [], function ($message) {
-    //         $message->to('admin@example.com')->subject('Testing MailHog');
-    //         $message->from('sender@example.com', 'Sender Name');
-    //     });
-    // }
 
     /* Search Section Start */
 
@@ -572,16 +562,20 @@ class CoordinatorController extends Controller
                 $query->where('student_number', 'like', '%' . $studentNumber . '%');
             })
             ->when($programCode, function ($query) use ($programCode) {
-                $query->whereHas('programs', function ($query) use ($programCode) {
-                    $query->where('code', 'like', '%' . $programCode . '%');
-                });
+                if (!empty($programCode)) {
+                    $query->whereHas('program', function ($query) use ($programCode) {
+                        $query->where('code', 'like', '%' . $programCode . '%');
+                    });
+                }
             })
             ->when($semester, function ($query) use ($semester) {
-                $query->whereHas('semesters', function ($query) use ($semester) {
-                    $query->where('session', 'like', '%' . $semester . '%');
-                });
+                if (!empty($semester)) {
+                    $query->whereHas('semester', function ($query) use ($semester) {
+                        $query->where('session', 'like', '%' . $semester . '%');
+                    });
+                }
             })
-            ->with('program', 'semester')
+            ->with(['program', 'semester'])
             ->get();
 
         // Render the partial view with the filtered students
@@ -608,16 +602,20 @@ class CoordinatorController extends Controller
                 $query->where('student_number', 'like', '%' . $studentNumber . '%');
             })
             ->when($programCode, function ($query) use ($programCode) {
-                $query->whereHas('programs', function ($query) use ($programCode) {
-                    $query->where('code', 'like', '%' . $programCode . '%');
-                });
+                if (!empty($programCode)) {
+                    $query->whereHas('program', function ($query) use ($programCode) {
+                        $query->where('code', 'like', '%' . $programCode . '%');
+                    });
+                }
             })
             ->when($semester, function ($query) use ($semester) {
-                $query->whereHas('semesters', function ($query) use ($semester) {
-                    $query->where('session', 'like', '%' . $semester . '%');
-                });
+                if (!empty($semester)) {
+                    $query->whereHas('semester', function ($query) use ($semester) {
+                        $query->where('session', 'like', '%' . $semester . '%');
+                    });
+                }
             })
-            ->with('program', 'semester')
+            ->with(['program', 'semester'])
             ->get();
 
         // Render the partial view with the filtered students
@@ -644,16 +642,20 @@ class CoordinatorController extends Controller
                 $query->where('student_number', 'like', '%' . $studentNumber . '%');
             })
             ->when($programCode, function ($query) use ($programCode) {
-                $query->whereHas('programs', function ($query) use ($programCode) {
-                    $query->where('code', 'like', '%' . $programCode . '%');
-                });
+                if (!empty($programCode)) {
+                    $query->whereHas('program', function ($query) use ($programCode) {
+                        $query->where('code', 'like', '%' . $programCode . '%');
+                    });
+                }
             })
             ->when($semester, function ($query) use ($semester) {
-                $query->whereHas('semesters', function ($query) use ($semester) {
-                    $query->where('session', 'like', '%' . $semester . '%');
-                });
+                if (!empty($semester)) {
+                    $query->whereHas('semester', function ($query) use ($semester) {
+                        $query->where('session', 'like', '%' . $semester . '%');
+                    });
+                }
             })
-            ->with('program', 'semester')
+            ->with(['program', 'semester'])
             ->get();
 
         // Render the partial view with the filtered students
@@ -680,16 +682,20 @@ class CoordinatorController extends Controller
                 $query->where('student_number', 'like', '%' . $studentNumber . '%');
             })
             ->when($programCode, function ($query) use ($programCode) {
-                $query->whereHas('programs', function ($query) use ($programCode) {
-                    $query->where('code', 'like', '%' . $programCode . '%');
-                });
+                if (!empty($programCode)) {
+                    $query->whereHas('program', function ($query) use ($programCode) {
+                        $query->where('code', 'like', '%' . $programCode . '%');
+                    });
+                }
             })
             ->when($semester, function ($query) use ($semester) {
-                $query->whereHas('semesters', function ($query) use ($semester) {
-                    $query->where('session', 'like', '%' . $semester . '%');
-                });
+                if (!empty($semester)) {
+                    $query->whereHas('semester', function ($query) use ($semester) {
+                        $query->where('session', 'like', '%' . $semester . '%');
+                    });
+                }
             })
-            ->with('program', 'semester')
+            ->with(['program', 'semester'])
             ->get();
 
         // Render the partial view with the filtered students

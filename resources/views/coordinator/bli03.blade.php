@@ -39,10 +39,20 @@
                         <input type="text" name="student_number" class="form-control" placeholder="Student Number">
                     </div>
                     <div class="input-group mb-2">
-                        <input type="text" name="program_code" class="form-control" placeholder="Program Code">
+                        <select name="program_code" class="form-control">
+                            <option value="">Select Program</option>
+                            @foreach ($programs as $program)
+                                <option value="{{ $program }}">{{ $program }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="input-group mb-2">
-                        <input type="text" name="semester" class="form-control" placeholder="Semester">
+                        <select name="semester" class="form-control">
+                            <option value="">Select Semester</option>
+                            @foreach ($semesters as $semester)
+                                <option value="{{ $semester }}">{{ $semester }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     @csrf
                     <div class="input-group-append">
