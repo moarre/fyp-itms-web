@@ -243,19 +243,17 @@ class CoordinatorController extends Controller
         $users = User::whereIn('id', $ids)->get();
 
         foreach ($users as $user) {
-            // check if user already has a pdf_id
-            if (!!$user->li01_id) {
-                continue;
-            } else {
+            // Check if user already has an li01_id
+            if ($user->li01_id) {
                 return response('Letter already generated for this user');
             }
 
-            // check if user has li02 or li03 id
+            // Check if user has li02 or li03 id
             if ($user->li02_id || $user->li03_id) {
                 // Save li01 file within the same id as li02_id or li03_id
                 $pdfFile = PdfFile::find($user->li02_id ?? $user->li03_id);
             } else {
-                // create new pdffile id
+                // Create new PdfFile
                 $pdfFile = new PdfFile();
             }
 
@@ -363,13 +361,6 @@ class CoordinatorController extends Controller
             ->with('success', 'Letter created successfully');
     }
 
-    // public function uploadBLI03single(User $user)
-    // {
-    //     $pdf = FacadePdf::loadView('coordinator.pdfbli03', compact('user'));
-    //     return $pdf->stream();
-    // }
-
-
     //get value checkboxes and upload to database
     public function uploadBLI03all(Request $request)
     {
@@ -377,11 +368,9 @@ class CoordinatorController extends Controller
         $users = User::whereIn('id', $ids)->get();
 
         foreach ($users as $user) {
-            // check if user already has a pdf_id
-            if (!!$user->li03_id) {
+            // Check if user already has an li03_id
+            if ($user->li03_id) {
                 return response('Letter already generated for this user');
-            } else {
-                continue;
             }
 
             $pdf = FacadePdf::loadView('coordinator.pdfbli03', compact('user'));
