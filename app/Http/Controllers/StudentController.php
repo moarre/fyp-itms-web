@@ -179,7 +179,7 @@ class StudentController extends Controller
     {
         $response = response($pdfFile->li03, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="pdfview.pdf"',
+            'Content-Disposition' => 'attachment; filename="SLI03.pdf"',
         ]);
 
         return $response;
@@ -190,7 +190,7 @@ class StudentController extends Controller
     {
         $response = response($pdfFile->li01, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="pdfview.pdf"',
+            'Content-Disposition' => 'attachment; filename="SLI01.pdf"',
         ]);
 
         return $response;
@@ -201,7 +201,7 @@ class StudentController extends Controller
     {
         $response = response($pdfFile->li02, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="pdfview.pdf"',
+            'Content-Disposition' => 'attachment; filename="BLI02.pdf"',
         ]);
 
         return $response;

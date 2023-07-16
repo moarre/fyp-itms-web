@@ -286,7 +286,7 @@ class CoordinatorController extends Controller
     {
         $response = response($pdfFile->li02, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="pdfview.pdf"',
+            'Content-Disposition' => 'inline; filename="BLI02.pdf"',
         ]);
 
         return $response;
@@ -297,7 +297,7 @@ class CoordinatorController extends Controller
     {
         $response = response($pdfFile->li02, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="pdfview.pdf"',
+            'Content-Disposition' => 'attachment; filename="BLI02.pdf"',
         ]);
 
         return $response;
