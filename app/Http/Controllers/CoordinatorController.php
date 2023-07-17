@@ -505,7 +505,7 @@ class CoordinatorController extends Controller
         }
         if ($pdfFile) {
             $attachments[] = [
-                'name' => 'Attachment3.pdf', // Set a desired name for the attachment
+                'name' => 'SLI03.pdf', // Set a desired name for the attachment
                 'data' => $pdfFile->li03,
                 'options' => [
                     'mime' => 'application/pdf',
