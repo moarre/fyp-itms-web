@@ -28,6 +28,8 @@ class SendEmailJob implements ShouldQueue
         $this->user = $user;
         $this->emailMessage = $emailMessage;
         $this->attachments = json_decode($attachmentsJson, true);
+
+        Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
     }
 
     /**
