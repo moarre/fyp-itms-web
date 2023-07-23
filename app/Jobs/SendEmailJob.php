@@ -48,9 +48,6 @@ class SendEmailJob implements ShouldQueue
         }
 
         try {
-            // Log the value of $this->attachments for debugging purposes
-            Log::info('Attachments:', ['attachments' => $this->attachments]);
-
             // Check if $this->attachments is an array and not null
             if (!is_array($this->attachments)) {
                 Log::error('Invalid attachments format. Expected an array.');
