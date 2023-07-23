@@ -19,6 +19,7 @@ use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\SendEmailJob;
 use Swift_Attachment;
 
 class CoordinatorController extends Controller
@@ -486,8 +487,6 @@ class CoordinatorController extends Controller
         // Retrieve the user data from the database
         $user = User::find($id);
         $emaildocs = Emaildocs::find($id);
-
-        // Retrieve the file paths from different columns of the database
         $filePath1 = $emaildocs->file_path1;
         $filePath2 = $emaildocs->file_path2;
         $pdfFile = PdfFile::find($user->li03_id);
@@ -513,22 +512,11 @@ class CoordinatorController extends Controller
             ];
         }
 
-        // Send the email with attachments
-        Mail::send([], [], function ($message) use ($user, $emailMessage, $attachments) {
-            $message->from($user->program->coordinator->email,  $user->program->coordinator->name);
-            $message->to($user->interndata->companyEmail)->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
-            $message->setBody($emailMessage, 'text/html');
-            foreach ($attachments as $attachment) {
-                if (is_array($attachment)) {
-                    $message->attachData($attachment['data'], $attachment['name'], $attachment['options']);
-                } else {
-                    $message->attach($attachment);
-                }
-            }
-        });
+        // Dispatch the email job to the database queue
+        SendEmailJob::dispatch($user, $emailMessage, $attachments);
 
         // Return a response
-        return redirect()->back()->with('success', 'Email sent successfully.');
+        return redirect()->back()->with('success', 'Email sent.');
     }
 
     /* Search Section Start */
