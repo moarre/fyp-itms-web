@@ -517,8 +517,6 @@ class CoordinatorController extends Controller
         // Convert the attachments array to a JSON string
         $attachmentsJson = json_encode($attachments);
 
-        dd($attachmentsJson);
-
         // Dispatch the email job to the database queue with the JSON-encoded attachments
         SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachmentsJson);
 
