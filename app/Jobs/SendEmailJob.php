@@ -27,9 +27,11 @@ class SendEmailJob implements ShouldQueue
     {
         $this->user = $user;
         $this->emailMessage = $emailMessage;
-        $this->attachments = json_decode($attachmentsJson, true);
 
+        // Log the value of $attachmentsJson for debugging purposes
         Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
+
+        $this->attachments = json_decode($attachmentsJson, true);
     }
 
     /**
@@ -39,6 +41,12 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
+        // Check if $this->attachments is null
+        if ($this->attachments === null) {
+            Log::error('Invalid attachments format. Attachments data is null.');
+            return;
+        }
+
         try {
             // Log the value of $this->attachments for debugging purposes
             Log::info('Attachments:', ['attachments' => $this->attachments]);
