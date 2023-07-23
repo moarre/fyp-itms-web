@@ -58,13 +58,13 @@ class SendEmailJob implements ShouldQueue
                 $message->from($this->user['program']['coordinator']['email'], $this->user['program']['coordinator']['name']);
                 $message->to($this->user['interndata']['companyEmail'])->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
                 $message->setBody($this->emailMessage, 'text/html');
-                foreach ($this->attachments as $attachment) {
-                    if (is_array($attachment)) {
-                        $message->attachData($attachment['data'], $attachment['name'], $attachment['options']);
-                    } else {
-                        $message->attach($attachment);
-                    }
-                }
+                // foreach ($this->attachments as $attachment) {
+                //     if (is_array($attachment)) {
+                //         $message->attachData($attachment['data'], $attachment['name'], $attachment['options']);
+                //     } else {
+                //         $message->attach($attachment);
+                //     }
+                // }
             });
 
             // Log a success message
