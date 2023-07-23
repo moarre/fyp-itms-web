@@ -498,10 +498,10 @@ class CoordinatorController extends Controller
         // Create an array of file paths for the attachments
         $attachments = [];
         if ($filePath1) {
-            $attachments[] = storage_path('app/public/' . $filePath1);
+            $attachments[] = realpath('storage/app/public/' . $filePath1);
         }
         if ($filePath2) {
-            $attachments[] = storage_path('app/public/' . $filePath2);
+            $attachments[] = realpath('storage/app/public/' . $filePath2);
         }
         if ($pdfFile) {
             // Get the binary data directly from the 'li03' attribute in the database
