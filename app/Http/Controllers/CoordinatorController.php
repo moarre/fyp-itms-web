@@ -503,9 +503,10 @@ class CoordinatorController extends Controller
             $attachments[] = storage_path('app/public/' . $filePath2);
         }
         if ($pdfFile) {
+            // Get the binary data directly from the 'li03' attribute in the database
             $attachments[] = [
                 'name' => 'SLI03.pdf', // Set a desired name for the attachment
-                'data' => file_get_contents(storage_path('app/public/' . $pdfFile->li03)), // Read the PDF file content
+                'data' => $pdfFile->li03,
                 'options' => [
                     'mime' => 'application/pdf',
                 ],
