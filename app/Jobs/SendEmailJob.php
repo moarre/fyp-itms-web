@@ -38,6 +38,15 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         try {
+            // Log the value of $this->attachments for debugging purposes
+            Log::info('Attachments:', $this->attachments);
+
+            // Check if $this->attachments is an array and not null
+            if (!is_array($this->attachments)) {
+                Log::error('Invalid attachments format. Expected an array.');
+                return; // Exit the handle method gracefully
+            }
+
             Mail::send([], [], function ($message) {
                 $message->from($this->user['program']['coordinator']['email'], $this->user['program']['coordinator']['name']);
                 $message->to($this->user['interndata']['companyEmail'])->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
