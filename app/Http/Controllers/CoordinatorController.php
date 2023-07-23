@@ -505,7 +505,7 @@ class CoordinatorController extends Controller
         if ($pdfFile) {
             $attachments[] = [
                 'name' => 'SLI03.pdf', // Set a desired name for the attachment
-                'data' => $pdfFile->li03,
+                'data' => file_get_contents(storage_path('app/public/' . $pdfFile->li03)), // Read the PDF file content
                 'options' => [
                     'mime' => 'application/pdf',
                 ],
@@ -513,10 +513,10 @@ class CoordinatorController extends Controller
         }
 
         // Dispatch the email job to the database queue
-        SendEmailJob::dispatch($user, $emailMessage, $attachments);
+        SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachments);
 
         // Return a response
-        return redirect()->back()->with('success', 'Email sent.');
+        return redirect()->back()->with('success', 'Email sending job dispatched.');
     }
 
     /* Search Section Start */

@@ -38,8 +38,8 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         Mail::send([], [], function ($message) {
-            $message->from($this->user->program->coordinator->email, $this->user->program->coordinator->name);
-            $message->to($this->user->interndata->companyEmail)->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
+            $message->from($this->user['program']['coordinator']['email'], $this->user['program']['coordinator']['name']);
+            $message->to($this->user['interndata']['companyEmail'])->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
             $message->setBody($this->emailMessage, 'text/html');
             foreach ($this->attachments as $attachment) {
                 if (is_array($attachment)) {
