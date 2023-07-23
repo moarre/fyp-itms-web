@@ -13,7 +13,8 @@
             height: 100px;
             /* Adjust the height as needed */
         }
-        .bg-purple{
+
+        .bg-purple {
             background-color: purple;
             color: white;
         }
@@ -55,7 +56,7 @@
                             <td>{{ $location->emailCompany }}</td>
                             <td>{{ $location->review }}</td>
                             <td>{{ $location->rating }}</td>
-                            <td>button</td>
+                            <td><button class="btn btn-purple" onclick="sendEmail('{{ $location->emailCompany }}')">Send Email</button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -106,7 +107,7 @@
                             '<div>{{ $location->emailCompany }}</div>' +
                             '<div>Review: {{ $location->review }}</div>' +
                             '<div>Rating: {{ $location->rating }}</div>' +
-                            '<button onclick="sendEmail(\'{{ $location->emailCompany }}\')">Send Email</button>'
+                            '<button class="btn btn-purple btn-sm" onclick="sendEmail(\'{{ $location->emailCompany }}\')">Send Email</button>'
                     });
 
                     marker.infowindow = infowindow; // Store the infowindow as a property of the marker
@@ -154,16 +155,25 @@
             }
 
             function sendEmail(email) {
-                // Submit a form to the send-email route with the email parameter
-                $.post('{{ route('send-email') }}', {
-                    _token: '{{ csrf_token() }}',
-                    email: email
-                }).done(function(response) {
-                    console.log(response); // Handle the response if needed
-                }).fail(function(error) {
-                    console.error(error); // Handle any error that occurs
-                });
+                var userName = '{{ Auth::user()->fullname }}';
+                var subject = 'INTERNSHIP APPLICATION'; // Modify this with your desired subject
+                var body =
+                    "Dear Recruitment Team,\n\n" +
+                    "I am writing to apply for the internship position at your company for a 4 month period. I am a final semester student pursuing a degree program in Bachelor of Computer Science in UiTM.\n\n" +
+                    "I have acquired a few skills throughout my degree which includes proficient use of the HTML, CSS and JavaScript. I would like to be able to sharpen my skills and be able to contribute to your company during my internship.\n\n" +
+                    "Attached with this email is my resume which provides a comprehensive overview of my educational background, relevant coursework, and previous experiences. I am confident that my skills and enthusiasm make me a strong candidate for this internship.\n\n" +
+                    "Thank you for your time and consideration. I am looking forward to hearing from you.\n\n" +
+                    "Regards,\n"+userName; // Modify this with your desired email body
+
+                // Create the mailto URL
+                var mailtoUrl = 'mailto:' + encodeURIComponent(email) +
+                    '?subject=' + encodeURIComponent(subject) +
+                    '&body=' + encodeURIComponent(body);
+
+                // Open the user's email account in the browser
+                window.open(mailtoUrl, '_blank');
             }
+
 
             $(document).ready(function() {
                 initMap();

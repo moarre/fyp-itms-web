@@ -161,9 +161,6 @@ Route::get('/sli03/{pdfFile}', [StudentController::class, 'downloadsli03'])->nam
 
 Route::post('update-input-value', 'StudentController@updateInputValue');
 
-//send email from marker (map)
-Route::post('/send-email', [MapController::class, 'sendEmail'])->name('send-email');
-
 /* ---------------- End Student Route ---------------- */
 
 /* ---------------- Map Route ---------------- */

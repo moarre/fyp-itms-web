@@ -64,21 +64,4 @@ class MapController extends Controller
 
         return redirect()->route('coordinator.dashboard');
     }
-
-    public function sendEmail(Request $request)
-    {
-        $emailCompany = $request->input('email');
-        $userEmail = Auth::user()->email;
-
-        $subject = 'Application for Intern'; // Modify this with your desired subject
-        $body = 'Saya nak apply intern please.'; // Modify this with your desired email body
-
-        $receiverEmail = urlencode($emailCompany);
-        $subject = urlencode($subject);
-        $body = urlencode($body);
-
-        $redirectUrl = "mailto:$receiverEmail?subject=$subject&body=$body";
-
-        return Redirect::to($redirectUrl);
-    }
 }
