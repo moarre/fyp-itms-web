@@ -20,6 +20,7 @@ use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\SendEmailJob;
+use Illuminate\Support\Facades\Log;
 use Swift_Attachment;
 
 class CoordinatorController extends Controller
@@ -513,8 +514,14 @@ class CoordinatorController extends Controller
             ];
         }
 
+        // Log the value of $attachments for debugging purposes
+        Log::info('Attachments:', ['attachments' => $attachments]);
+
         // Convert the attachments array to a JSON string
         $attachmentsJson = json_encode($attachments);
+
+        // Log the value of $attachmentsJson for debugging purposes
+        Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
 
         // Dispatch the email job to the database queue with the JSON-encoded attachments
         SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachmentsJson);
