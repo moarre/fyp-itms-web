@@ -410,74 +410,60 @@ class CoordinatorController extends Controller
 
     public function BLI04upload(Request $request)
     {
+        // Check if BLI04 is filled or not
+        $emailDoc = Emaildocs::find(1); // Assuming you want to find the record with id=1, modify this accordingly.
+
+        // If filled, then replace the file
+        if ($emailDoc) {
+            $request->validate([
+                'file' => 'required|mimes:pdf|max:2048',
+            ]);
+
+            $emailDoc->BLI04 = file_get_contents($request->file('file'));
+            $emailDoc->save();
+
+            return redirect()->back()->with('success', 'PDF file replaced successfully.');
+        }
+
+        // If not filled, then create a new id
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
         ]);
 
-        $file = $request->file('file');
-        $folder = 'bli04'; // Specify the folder name here
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $filePath = $folder . '/' . $filename;
+        $emailDoc = new Emaildocs();
+        $emailDoc->BLI04 = file_get_contents($request->file('file'));
+        $emailDoc->save();
 
-        // Check if the folder exists, otherwise create it
-        if (!Storage::disk('public')->exists($folder)) {
-            Storage::disk('public')->makeDirectory($folder);
-        }
-
-        // Save the PDF file to storage/app/public/your-folder-name
-        Storage::disk('public')->put($filePath, file_get_contents($file));
-
-        // Find an existing instance of Emaildocs model
-        $emailDoc = Emaildocs::first();
-        if ($emailDoc) {
-            // Update the existing instance's file_path1
-            $emailDoc->file_path1 = $filePath;
-            $emailDoc->save();
-        } else {
-            // Create a new instance if no existing instance is found
-            $emailDoc = new Emaildocs();
-            $emailDoc->file_path1 = $filePath;
-            $emailDoc->save();
-        }
-
-        return redirect()->route('coordinator.dashboard')
-            ->with('success', 'File uploaded successfully');
+        return redirect()->back()->with('success', 'PDF file uploaded successfully.');
     }
 
     public function Lampiran1upload(Request $request)
     {
+        // Check if BLI04 is filled or not
+        $emailDoc = Emaildocs::find(1); // Assuming you want to find the record with id=1, modify this accordingly.
+
+        // If filled, then replace the file
+        if ($emailDoc) {
+            $request->validate([
+                'file' => 'required|mimes:pdf|max:2048',
+            ]);
+
+            $emailDoc->Lampiran1 = file_get_contents($request->file('file'));
+            $emailDoc->save();
+
+            return redirect()->back()->with('success', 'PDF file replaced successfully.');
+        }
+
+        // If not filled, then create a new id
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
         ]);
 
-        $file = $request->file('file');
-        $folder = 'lampiran1'; // Specify the folder name here
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $filePath = $folder . '/' . $filename;
+        $emailDoc = new Emaildocs();
+        $emailDoc->BLI04 = file_get_contents($request->file('file'));
+        $emailDoc->save();
 
-        // Check if the folder exists, otherwise create it
-        if (!Storage::disk('public')->exists($folder)) {
-            Storage::disk('public')->makeDirectory($folder);
-        }
-
-        // Save the PDF file to storage/app/public/your-folder-name
-        Storage::disk('public')->put($filePath, file_get_contents($file));
-
-        // Find an existing instance of Emaildocs model
-        $emailDoc = Emaildocs::first();
-        if ($emailDoc) {
-            // Update the existing instance's file_path2
-            $emailDoc->file_path2 = $filePath;
-            $emailDoc->save();
-        } else {
-            // Create a new instance if no existing instance is found
-            $emailDoc = new Emaildocs();
-            $emailDoc->file_path2 = $filePath;
-            $emailDoc->save();
-        }
-
-        return redirect()->route('coordinator.dashboard')
-            ->with('success', 'File uploaded successfully');
+        return redirect()->back()->with('success', 'PDF file uploaded successfully.');
     }
 
     //BLI04 upload files (end)
@@ -488,23 +474,39 @@ class CoordinatorController extends Controller
         // Retrieve the user data from the database
         $user = User::find($id);
         $emaildocs = Emaildocs::find($id);
-        $filePath1 = $emaildocs->file_path1;
-        $filePath2 = $emaildocs->file_path2;
+        $bli04Binary = $emaildocs->BLI04;
         $pdfFile = PdfFile::find($user->li03_id);
+
+        // Assuming you have a 'Lampiran1' attribute in the Emaildocs model, adjust this accordingly.
+        $lampiran1Binary = $emaildocs->Lampiran1;
 
         // Build the email message from a Blade template
         $emailMessage = view('coordinator.emailbli04', ['user' => $user])->render();
 
         // Create an array of file paths for the attachments
         $attachments = [];
-        if ($filePath1) {
-            $attachments[] = realpath('storage/app/public/' . $filePath1);
+
+        if ($bli04Binary) {
+            $attachments[] = [
+                'name' => 'BLI04.pdf', // Set a desired name for the attachment
+                'data' => base64_encode($bli04Binary), // Convert binary data to base64
+                'options' => [
+                    'mime' => 'application/pdf',
+                ],
+            ];
         }
-        if ($filePath2) {
-            $attachments[] = realpath('storage/app/public/' . $filePath2);
+
+        if ($lampiran1Binary) {
+            $attachments[] = [
+                'name' => 'Lampiran1.pdf', // Set a desired name for the attachment
+                'data' => base64_encode($lampiran1Binary), // Convert binary data to base64
+                'options' => [
+                    'mime' => 'application/pdf',
+                ],
+            ];
         }
+
         if ($pdfFile) {
-            // Get the binary data directly from the 'li03' attribute in the database
             $attachments[] = [
                 'name' => 'SLI03.pdf', // Set a desired name for the attachment
                 'data' => base64_encode($pdfFile->li03), // Convert binary data to base64

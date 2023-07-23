@@ -15,8 +15,8 @@ class CreateEmaildocsTable extends Migration
     {
         Schema::create('emaildocs', function (Blueprint $table) {
             $table->id();
-            $table->string('file_path1')->nullable();
-            $table->string('file_path2')->nullable();
+            $table->binary('BLI04')->nullable();
+            $table->binary('Lampiran1')->nullable();
             $table->timestamps();
         });
     }
