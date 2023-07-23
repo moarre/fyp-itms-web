@@ -507,25 +507,15 @@ class CoordinatorController extends Controller
             // Get the binary data directly from the 'li03' attribute in the database
             $attachments[] = [
                 'name' => 'SLI03.pdf', // Set a desired name for the attachment
-                'data' => $pdfFile->li03,
+                'data' => base64_encode($pdfFile->li03), // Convert binary data to base64
                 'options' => [
                     'mime' => 'application/pdf',
                 ],
             ];
         }
 
-        // dd($attachments);
-
-        // // Log the value of $attachments for debugging purposes
-        // Log::info('Attachments:', ['attachments' => $attachments]);
-
         // Convert the attachments array to a JSON string
         $attachmentsJson = json_encode($attachments);
-
-        dd($attachmentsJson);
-
-        // // Log the value of $attachmentsJson for debugging purposes
-        // Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
 
         // Dispatch the email job to the database queue with the JSON-encoded attachments
         SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachmentsJson);
@@ -533,6 +523,7 @@ class CoordinatorController extends Controller
         // Return a response
         return redirect()->back()->with('success', 'Email sending job dispatched.');
     }
+
 
     /* Search Section Start */
 
