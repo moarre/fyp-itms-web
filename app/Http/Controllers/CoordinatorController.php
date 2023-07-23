@@ -514,7 +514,7 @@ class CoordinatorController extends Controller
             ];
         }
 
-        dd($attachments);
+        // dd($attachments);
 
         // // Log the value of $attachments for debugging purposes
         // Log::info('Attachments:', ['attachments' => $attachments]);
