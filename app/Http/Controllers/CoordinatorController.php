@@ -514,14 +514,18 @@ class CoordinatorController extends Controller
             ];
         }
 
-        // Log the value of $attachments for debugging purposes
-        Log::info('Attachments:', ['attachments' => $attachments]);
+        dd($attachments);
+
+        // // Log the value of $attachments for debugging purposes
+        // Log::info('Attachments:', ['attachments' => $attachments]);
 
         // Convert the attachments array to a JSON string
         $attachmentsJson = json_encode($attachments);
 
-        // Log the value of $attachmentsJson for debugging purposes
-        Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
+        dd($attachmentsJson);
+
+        // // Log the value of $attachmentsJson for debugging purposes
+        // Log::info('Attachments JSON:', ['attachmentsJson' => $attachmentsJson]);
 
         // Dispatch the email job to the database queue with the JSON-encoded attachments
         SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachmentsJson);
