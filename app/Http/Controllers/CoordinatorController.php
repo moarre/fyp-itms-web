@@ -513,8 +513,11 @@ class CoordinatorController extends Controller
             ];
         }
 
-        // Dispatch the email job to the database queue
-        SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachments);
+        // Convert the attachments array to a JSON string
+        $attachmentsJson = json_encode($attachments);
+
+        // Dispatch the email job to the database queue with the JSON-encoded attachments
+        SendEmailJob::dispatch($user->toArray(), $emailMessage, $attachmentsJson);
 
         // Return a response
         return redirect()->back()->with('success', 'Email sending job dispatched.');

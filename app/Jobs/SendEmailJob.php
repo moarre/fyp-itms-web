@@ -23,11 +23,11 @@ class SendEmailJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($user, $emailMessage, $attachments)
+    public function __construct($user, $emailMessage, $attachmentsJson)
     {
         $this->user = $user;
         $this->emailMessage = $emailMessage;
-        $this->attachments = $attachments;
+        $this->attachments = json_decode($attachmentsJson, true);
     }
 
     /**
