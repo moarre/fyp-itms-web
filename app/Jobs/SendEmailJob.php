@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -40,19 +39,16 @@ class SendEmailJob implements ShouldQueue
     {
         try {
             Mail::send([], [], function ($message) {
-                // Existing email sending logic here
-                Mail::send([], [], function ($message) {
-                    $message->from($this->user['program']['coordinator']['email'], $this->user['program']['coordinator']['name']);
-                    $message->to($this->user['interndata']['companyEmail'])->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
-                    $message->setBody($this->emailMessage, 'text/html');
-                    foreach ($this->attachments as $attachment) {
-                        if (is_array($attachment)) {
-                            $message->attachData($attachment['data'], $attachment['name'], $attachment['options']);
-                        } else {
-                            $message->attach($attachment);
-                        }
+                $message->from($this->user['program']['coordinator']['email'], $this->user['program']['coordinator']['name']);
+                $message->to($this->user['interndata']['companyEmail'])->subject('PENGESAHAN PENERIMAAN PENEMPATAN LATIHAN INDUSTRI');
+                $message->setBody($this->emailMessage, 'text/html');
+                foreach ($this->attachments as $attachment) {
+                    if (is_array($attachment)) {
+                        $message->attachData($attachment['data'], $attachment['name'], $attachment['options']);
+                    } else {
+                        $message->attach($attachment);
                     }
-                });
+                }
             });
 
             // Log a success message
@@ -64,6 +60,5 @@ class SendEmailJob implements ShouldQueue
             // Re-throw the exception to mark the job as failed
             throw $e;
         }
-
     }
 }
