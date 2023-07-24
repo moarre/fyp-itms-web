@@ -172,7 +172,7 @@ Route::post('update-input-value', 'StudentController@updateInputValue');
 /* ---------------- Map Route ---------------- */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 /*

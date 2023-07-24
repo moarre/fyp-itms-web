@@ -50,8 +50,8 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-4">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-primary" href="{{ route('programs.index') }}"> Back</a>
+                  <button type="submit" class="btn btn-purple">Submit</button>
+                    <a class="btn btn-purple" href="{{ route('programs.index') }}"> Back</a>
                 </div>
             </div>
 

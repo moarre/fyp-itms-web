@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="pull-right mt-4">
-                    <a class="btn btn-primary" href="{{ route('programs.index') }}"> Back</a>
+                    <a class="btn btn-purple" href="{{ route('programs.index') }}"> Back</a>
             </div>
         </div>
     </div>
