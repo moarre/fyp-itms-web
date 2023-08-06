@@ -58,8 +58,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Full Name:</strong>
-                        <input type="text" name="fullname" value="{{ $student->fullname }}" class="form-control"
-                            placeholder="Full Name">
+                        <input type="text" name="fullname" value="{{ $student->fullname }}"
+                            class="form-control uppercase-input" placeholder="Full Name">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -72,8 +72,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Student Number:</strong>
-                        <input type="text" name="student_number" value="{{ $student->student_number }}" class="form-control"
-                            placeholder="Student Number">
+                        <input type="text" name="student_number" value="{{ $student->student_number }}"
+                            class="form-control" placeholder="Student Number">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -93,7 +93,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Parent's Name:</strong>
-                        <input type="text" class="form-control" name="nama_penjaga"
+                        <input type="text" class="form-control uppercase-input" name="nama_penjaga"
                             value="{{ $student->nama_penjaga }}" placeholder="Parent's Name">
                     </div>
                 </div>
@@ -116,8 +116,8 @@
             <br>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-primary" href="{{ route('coordinator.dashboard') }}"> Back</a>
+                    <button type="submit" class="btn btn-purple">Submit</button>
+                    <a class="btn btn-purple" href="{{ route('coordinator.dashboard') }}"> Back</a>
                 </div>
             </div>
 

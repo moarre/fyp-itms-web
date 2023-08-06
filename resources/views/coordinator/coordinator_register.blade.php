@@ -32,9 +32,14 @@
                                                 placeholder="Enter your username" />
                                             <label for="name">Username</label>
                                         </div>
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="text" name="position"
-                                                placeholder="Enter your position" />
+                                        <div class="form-floating mb-3 d-flex align-items-center">
+                                            <select class="form-control form-select" id="position" name="position">
+                                                <option value="">Position</option>
+                                                <option value="Lecturer">Lecturer</option>
+                                                <option value="Senior Lecturer">Senior Lecturer</option>
+                                                <option value="Associate Professor">Associate Professor</option>
+                                                <option value="Professor">Professor</option>
+                                            </select>
                                             <label for="position">Position</label>
                                         </div>
                                         <div class="form-floating mb-3">
@@ -44,29 +49,38 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
+                                                <div class="form-floating mb-3">
                                                     <input class="form-control" id="inputPassword" type="password"
                                                         name="password" placeholder="Create a password" />
                                                     <label for="password">Password</label>
                                                 </div>
+                                                <div class="progress">
+                                                    <div id="password-strength-bar" class="progress-bar"
+                                                        role="progressbar" style="width: 0%;"></div>
+                                                </div>
+                                                <div id="password-strength-text" class="text-center mt-2"></div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="inputPasswordConfirm"
-                                                        type="password" name="password_confirmation"
+                                                    <input class="form-control" id="inputPasswordConfirm" type="password" name="password_confirmation"
                                                         placeholder="Confirm password" />
                                                     <label for="inputPasswordConfirm">Confirm Password</label>
+                                                    <div id="passwordMatchError" class="text-danger mt-1" style="display: none;">
+                                                        Passwords do not match.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mt-4 mb-0">
-                                            <div class="d-grid"><button class="btn btn-primary" style="background-color: blue"
-                                                type="submit">Create Account</button></div>
+                                            <div class="d-grid"><button class="btn btn-primary"
+                                                    style="background-color: blue" type="submit">Create
+                                                    Account</button></div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="{{ route('coordinator_login_from') }}">Have an account? Go to
+                                    <div class="small"><a href="{{ route('coordinator_login_from') }}">Have an account?
+                                            Go to
                                             login</a></div>
                                 </div>
                             </div>
@@ -79,6 +93,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="{{ asset('panel/js/scripts.js') }}"></script>
+    <script>
+        // Function to update the password strength indicator and text
+        function updatePasswordStrengthIndicator(password) {
+            const bar = document.getElementById("password-strength-bar");
+            const text = document.getElementById("password-strength-text");
+            const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+            const moderateRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})");
+
+            if (strongRegex.test(password)) {
+                bar.style.width = "100%";
+                bar.style.backgroundColor = "green";
+                text.innerText = "Strong";
+                text.style.color = "green";
+            } else if (moderateRegex.test(password)) {
+                bar.style.width = "60%";
+                bar.style.backgroundColor = "orange";
+                text.innerText = "Moderate";
+                text.style.color = "orange";
+            } else {
+                bar.style.width = "30%";
+                bar.style.backgroundColor = "red";
+                text.innerText = "Weak";
+                text.style.color = "red";
+            }
+        }
+
+        function checkPasswordMatch() {
+            const password = document.getElementById("inputPassword").value;
+            const confirmPassword = document.getElementById("inputPasswordConfirm").value;
+
+            if (password !== confirmPassword) {
+                const passwordMatchError = document.getElementById("passwordMatchError");
+                passwordMatchError.style.display = "block";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Add event listener to the form submit event
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            if (!checkPasswordMatch()) {
+                event.preventDefault(); // Prevent form submission if passwords don't match
+            }
+        });
+
+        // Add event listener to the password input field
+        const passwordInput = document.getElementById("inputPassword");
+        passwordInput.addEventListener("input", function() {
+            const password = this.value;
+            updatePasswordStrengthIndicator(password);
+        });
+    </script>
 </body>
 
 </html>

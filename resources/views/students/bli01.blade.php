@@ -33,82 +33,71 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <strong>Semester:</strong>
-                        <select class="form-control" name="semester_id" id="docNo">
-                            <option value="">-- Choose Semester --</option>
-                            @foreach ($semesters as $id => $name)
-                                <option value="{{ $id }}"
-                                    {{ isset($student['semester_id']) && $student['semester_id'] == $id ? ' selected' : '' }}>
-                                    {{ $name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="session" value="{{ Auth::user()->semester->session }}" class="form-control"
+                            placeholder="Semester" readonly>
                     </div>
                 </div>
+
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <strong>Program:</strong>
-                    <select class="form-control" name="program_id" id="input1">
-                        <option value="">-- Choose Program --</option>
-                        @foreach ($programs as $id => $code)
-                            <option value="{{ $id }}"
-                                {{ isset($student['program_id']) && $student['program_id'] == $id ? ' selected' : '' }}>
-                                {{ $code }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="program" value="{{ Auth::user()->program->code }}" class="form-control"
+                        placeholder="Program" readonly>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Full Name:</strong>
-                        <input type="text" name="fullname" value="{{ Auth::user()->fullname }}"
-                            class="form-control uppercase-input" placeholder="Full Name">
+                        <input type="text" name="fullname" value="{{ Auth::user()->fullname }}" class="form-control"
+                            placeholder="Full Name" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Email:</strong>
                         <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}"
-                            placeholder="Email">
+                            placeholder="Email" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Student Number:</strong>
                         <input type="text" name="student_number" value="{{ Auth::user()->student_number }}"
-                            class="form-control" placeholder="Student Number">
+                            class="form-control" placeholder="Student Number" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>IC:</strong>
                         <input type="text" name="ic" value="{{ Auth::user()->ic }}" class="form-control"
-                            placeholder="IC">
+                            placeholder="IC" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Address:</strong>
                         <input type="textarea" class="form-control" name="address" value="{{ Auth::user()->address }}"
-                            placeholder="Address">
+                            placeholder="Address" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Parent's Name:</strong>
-                        <input type="text" class="form-control uppercase-input" name="nama_penjaga"
-                            value="{{ Auth::user()->nama_penjaga }}" placeholder="Parent's Name">
+                        <input type="text" class="form-control" name="nama_penjaga"
+                            value="{{ Auth::user()->nama_penjaga }}" placeholder="Parent's Name" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Parent's Phone:</strong>
                         <input type="text" name="phone_penjaga" value="{{ Auth::user()->phone_penjaga }}"
-                            class="form-control" placeholder="Parent's Phone">
+                            class="form-control" placeholder="Parent's Phone" readonly>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Parent's address:</strong>
                         <input type="textarea" class="form-control" name="alamat_penjaga"
-                            value="{{ Auth::user()->alamat_penjaga }}" placeholder="Parent's address">
+                            value="{{ Auth::user()->alamat_penjaga }}" placeholder="Parent's address" readonly>
                     </div>
                 </div>
             </div>
@@ -116,7 +105,6 @@
             <br>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-purple">Submit</button>
                     <a class="btn btn-purple" href="{{ route('students.index') }}"> Back</a>
                 </div>
             </div>

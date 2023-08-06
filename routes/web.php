@@ -52,6 +52,10 @@ Route::prefix('coordinator')->group(function () {
     Route::get('/login', [CoordinatorController::class, 'CoordinatorIndex'])->name('coordinator_login_from');
     Route::post('/login/owner', [CoordinatorController::class, 'CoordinatorLogin'])->name('coordinator.login');
     Route::get('/dashboard', [CoordinatorController::class, 'CoordinatorDashboard'])->name('coordinator.dashboard')->middleware('coordinator');
+
+    Route::get('/profile/{coordinator}/edit', [CoordinatorController::class, 'coordinatorProfile'])->name('coordinator.profile')->middleware('coordinator');
+    Route::put('/profile/{coordinator}', [CoordinatorController::class, 'profileupdate'])->name('coordinator.coordupdate');
+
     Route::get('/BLI01', [CoordinatorController::class, 'BLI01page'])->name('coordinator.bli01')->middleware('coordinator');
 
     Route::get('/BLI01/all', [CoordinatorController::class, 'li01allStudents'])->name('coordinator.li01all')->middleware('coordinator');
@@ -134,6 +138,9 @@ Route::get('/students/{student}', [StudentController::class, 'show'])->name('stu
 Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
 Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
 Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+
+//open bli01
+Route::get('/BLI01', [StudentController::class, 'bli01'])->name('students.bli01');
 
 //open bli02
 Route::get('/BLI02', [StudentController::class, 'bli02'])->name('students.bli02');

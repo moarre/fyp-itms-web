@@ -39,6 +39,10 @@
         .sb-sidenav {
             color: white;
         }
+
+        .uppercase-input {
+            text-transform: uppercase;
+        }
     </style>
 
     <!-- Autocomplete place -->
@@ -64,7 +68,9 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('coordinator.profile', Auth::guard('coordinator')->user()->id) }}">Profile</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>

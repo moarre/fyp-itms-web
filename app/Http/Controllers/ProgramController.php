@@ -30,7 +30,7 @@ class ProgramController extends Controller
     {
         $program = Program::all();
 
-        $coordinators = Coordinator::pluck('name', 'id');
+        $coordinators = Coordinator::pluck('fullname', 'id');
 
         return view('programs.create', compact('program', 'coordinators'));
     }
@@ -68,7 +68,7 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
-        $coordinators = Coordinator::pluck('name', 'id');
+        $coordinators = Coordinator::pluck('fullname', 'id');
 
         return view('programs.edit', compact('program','coordinators'));
     }

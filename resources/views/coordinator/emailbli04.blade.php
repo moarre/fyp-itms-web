@@ -16,7 +16,7 @@
                 <div dir="ltr"><b
                         style="color:rgb(0,0,0);font-family:&quot;Default Sans Serif&quot;,Verdana,Arial,Helvetica,sans-serif">
                         <font face="Default Sans Serif, Verdana, Arial, Helvetica, sans-serif">
-                            {{ $user->program->coordinator->name }}
+                            {{ $user->program->coordinator->fullname }}
                         </font>
                     </b>
                     <div
@@ -196,7 +196,7 @@
                             <p class="MsoNormal"
                                 style="margin:0in;line-height:normal;font-size:11pt;font-family:Calibri,sans-serif">
                                 <b><span
-                                        style="font-size:12pt;font-family:Verdana,sans-serif;color:black">{{ $user->program->coordinator->name }}</span></b>
+                                        style="font-size:12pt;font-family:Verdana,sans-serif;color:black">{{ $user->program->coordinator->fullname }}</span></b>
                             </p>
 
                             <p class="MsoNormal"

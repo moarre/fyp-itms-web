@@ -2,11 +2,11 @@
 @foreach ($students as $student)
     <?php $number++; ?>
     <tr>
-        <td>
+        {{-- <td>
             <div class="form-group">
                 <input type="checkbox" class="check_item" name="check_item[]" value="{{ $student->id }}">
             </div>
-        </td>
+        </td> --}}
         <td>{{ $number }}</td>
         <td>{{ $student->student_number }}</td>
         <td>{{ $student->fullname }}</td>

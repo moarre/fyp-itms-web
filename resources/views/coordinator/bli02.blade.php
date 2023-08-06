@@ -69,11 +69,11 @@
                 <table class="table table-striped table-hover" id="student-table">
                     <thead>
                         <tr>
-                            <th scope="col">
+                            {{-- <th scope="col">
                                 <div class="form-group">
                                     <input type="checkbox" class="check_all" name="check_all">
                                 </div>
-                            </th>
+                            </th> --}}
                             <th scope="col">Bil</th>
                             <th scope="col">Student Number</th>
                             <th scope="col">Full Name</th>
@@ -88,12 +88,12 @@
                         @foreach ($students as $student)
                             <?php $number++; ?>
                             <tr>
-                                <td>
+                                {{-- <td>
                                     <div class="form-group">
                                         <input type="checkbox" class="check_item" name="check_item[]"
                                             value="{{ $student->id }}">
                                     </div>
-                                </td>
+                                </td> --}}
                                 <td>{{ $number }}</td>
                                 <td>{{ $student->student_number }}</td>
                                 <td>{{ $student->fullname }}</td>
@@ -118,7 +118,7 @@
                 </table>
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn btn-purple">Download</button>
+                {{-- <button type="submit" class="btn btn-purple">Download</button> --}}
             </form>
         </div>
     </div>

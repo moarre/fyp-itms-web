@@ -190,6 +190,19 @@ class CoordinatorController extends Controller
         return redirect()->route('coordinator_login_from')->with('error', 'Coordinator Created Successfully');
     } // end mehtod
 
+    public function coordinatorProfile(Coordinator $coordinator)
+    {
+        return view('coordinator.coordprofile', compact('coordinator'));
+    }
+
+    public function profileupdate(Request $request, Coordinator $coordinator)
+    {
+
+        $coordinator->update($request->all());
+
+        return redirect()->route('coordinator.dashboard')
+            ->with('success', 'Profile updated successfully');
+    }
 
     //BLI01 page
     public function BLI01page()

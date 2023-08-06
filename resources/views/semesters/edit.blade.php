@@ -27,22 +27,28 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Session:</strong>
-                            <input type="text" name="session" value="{{ $semester->session }}" class="form-control"
-                                placeholder="Session">
+                            <select name="session" class="form-control">
+                                <option value="{{ $semester->session }}">{{ $semester->session }}</option>
+                                <option value="SEPTEMBER 2023 - DECEMBER 2023">SEPTEMBER 2023 - DECEMBER 2023</option>
+                                <option value="FEBRUARY 2024 - MAY 2024">FEBRUARY 2024 - MAY 2024</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Semester:</strong>
                             <input type="type" class="form-control" name="numSemester"
-                                value="{{ $semester->numSemester }}" placeholder="Semester"></input>
+                                value="{{ $semester->numSemester }}" placeholder="Semester" readonly>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Year:</strong>
-                            <input type="text" name="yearSemester" value="{{ $semester->yearSemester }}"
-                                class="form-control" placeholder="Year">
+                            <select class="form-control" name="yearSemester">
+                                <option value="{{ $semester->yearSemester }}">{{ $semester->yearSemester }}</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

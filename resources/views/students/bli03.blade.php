@@ -30,42 +30,43 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Name:</strong>
-                        <input type="text" name="companyName" value="{{ Auth::user()->interndata->companyName ?? null }}" class="form-control"
-                            placeholder="Company Name">
+                        <input type="text" name="companyName" value="{{ Auth::user()->interndata->companyName ?? null }}"
+                            class="form-control uppercase-input" placeholder="Company Name">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Address:</strong>
-                        <input type="textarea" class="form-control" name="companyAddress" value="{{ Auth::user()->interndata->companyAddress ?? null  }}"
-                            placeholder="Company Address">
+                        <input type="textarea" class="form-control" name="companyAddress"
+                            value="{{ Auth::user()->interndata->companyAddress ?? null }}" placeholder="Company Address">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Email:</strong>
-                        <input type="textarea" class="form-control" name="companyEmail" value="{{ Auth::user()->interndata->companyEmail ?? null  }}"
-                            placeholder="Company Email">
+                        <input type="textarea" class="form-control" name="companyEmail"
+                            value="{{ Auth::user()->interndata->companyEmail ?? null }}" placeholder="Company Email">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Date of Reporting Duty:</strong>
-                        <input type="text" name="dateDuty" value="{{ Auth::user()->interndata->dateDuty ?? null  }}" class="form-control"
-                            placeholder="Date of Reporting Duty">
+                        <input type="text" name="dateDuty" value="{{ Auth::user()->interndata->dateDuty ?? null }}"
+                            class="form-control" placeholder="Date of Reporting Duty">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Period of intern (in date):</strong>
-                        <input type="text" name="periodDuty" value="{{ Auth::user()->interndata->periodDuty ?? null  }}" class="form-control"
-                            placeholder="Period of intern">
+                        <input type="text" name="periodDuty" value="{{ Auth::user()->interndata->periodDuty ?? null }}"
+                            class="form-control" placeholder="Period of intern">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Person in Charge (PIC):</strong>
-                        <input type="text" name="personinCharge" value="{{ Auth::user()->interndata->personinCharge ?? null  }}" class="form-control"
+                        <input type="text" name="personinCharge"
+                            value="{{ Auth::user()->interndata->personinCharge ?? null }}" class="form-control"
                             placeholder="Person in Charge">
                     </div>
                 </div>

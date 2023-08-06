@@ -27,7 +27,7 @@ class StudentController extends Controller
             ->get();
         $locations = Location::all();
 
-        return view('students.index', compact('students','locations'));
+        return view('students.index', compact('students', 'locations'));
     }
 
     /**
@@ -128,6 +128,20 @@ class StudentController extends Controller
 
         return redirect()->route('students.index')
             ->with('success', 'Student deleted successfully');
+    }
+
+    //open bli-01
+    public function bli01()
+    {
+        $programs = Program::pluck('code', 'id');
+
+        $semesters = Semester::pluck('session', 'id', 'numSemester');
+
+        $coordinators = Coordinator::pluck('name', 'id');
+
+        $lecturers = Lecturer::pluck('name', 'id');
+
+        return view('students.bli01', compact('programs', 'semesters', 'coordinators', 'lecturers'));
     }
 
     //open bli-02

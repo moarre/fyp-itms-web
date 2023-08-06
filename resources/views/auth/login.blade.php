@@ -9,7 +9,7 @@
                     <div class="card-body p-5 text-center">
 
                         <h3 class="fs-2">Sistem LI</h3>
-                        <h6 class="mb-5">User</h6>
+                        <h6 class="mb-5">Student</h6>
 
                         @if (Session::has('error'))
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">

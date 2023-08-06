@@ -39,6 +39,10 @@
         .sb-sidenav {
             color: white;
         }
+
+        .uppercase-input {
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -60,7 +64,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="{{ route('students.edit', Auth::user()->id) }}">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
@@ -85,7 +89,7 @@
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{ route('students.edit', Auth::user()->id) }}">BLI-01</a>
+                                    <a class="nav-link" href="{{ route('students.bli01', Auth::user()->id) }}">BLI-01</a>
                                     @if (Auth::user()->li01_id)
                                         <a class="nav-link"
                                             href="{{ route('sli01.download', ['pdfFile' => Auth::user()->li01_id]) }}">SLI-01</a>

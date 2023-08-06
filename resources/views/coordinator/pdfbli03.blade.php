@@ -152,7 +152,7 @@
         <p><span>&nbsp;</span></p>
         <p><span>&nbsp;</span></p>
         <p style='margin-left:36.0pt;text-indent:-36.0pt;'>
-            <span>MOHAMAD ASROL BIN ARSHAD</span>
+            <span>{{ $user->program->coordinator->fullname }}</span>
         </p>
         <p style='margin-left:36.0pt;text-indent:-36.0pt;'>
             <span>Penyelaras Latihan Industri CS251 </span>

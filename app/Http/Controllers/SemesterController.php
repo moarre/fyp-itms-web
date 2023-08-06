@@ -16,7 +16,7 @@ class SemesterController extends Controller
     public function index()
     {
         $semesters = Semester::with('coordinator')
-        ->get();
+            ->get();
 
         return view('semesters.index', compact('semesters'));
     }
@@ -30,7 +30,7 @@ class SemesterController extends Controller
     {
         $semester = Semester::all();
 
-        $coordinators = Coordinator::pluck('name', 'id');
+        $coordinators = Coordinator::pluck('fullname', 'id');
 
         return view('semesters.create', compact('semester', 'coordinators'));
     }
@@ -68,9 +68,9 @@ class SemesterController extends Controller
      */
     public function edit(Semester $semester)
     {
-        $coordinators = Coordinator::pluck('name', 'id');
+        $coordinators = Coordinator::pluck('fullname', 'id');
 
-        return view('semesters.edit', compact('semester','coordinators'));
+        return view('semesters.edit', compact('semester', 'coordinators'));
     }
 
     /**
